@@ -1,19 +1,13 @@
-import React from 'react'
-import './App.css'
-import Homepage from './pages/home/homepage.page'
 import { Route } from 'react-router-dom'
-
-const HatsPage = () => (
-  <div>
-    <h1>Hats Page</h1>
-  </div>
-)
+import './App.css'
+import HomePage from './pages/home/home.page'
+import ShopPage from './pages/shop/shop.page'
 
 const App = () => (
-  <div>
-    <Route exact path="/" component={Homepage} />
-    <Route exact path="/shop/hats" component={HatsPage} />
-  </div>
+  <>
+    <Route exact path="/" component={HomePage} />
+    <Route path="/shop" component={ShopPage} />
+  </>
 )
 
 export default App
