@@ -2,6 +2,7 @@ import { Component } from 'react'
 import './sign-in.styles.scss'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
+import { SignInWithGoogle } from '../../firebase'
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class SignIn extends Component {
     this.setState({ email: '', password: '' })
   }
   handleChange(evt) {
-    const { name, value } = evt
+    // const { name, value } = evt
     // this.setState({ [name]: value })
   }
   render() {
@@ -42,8 +43,12 @@ export default class SignIn extends Component {
             value={this.state.password}
             required
           />
-
-          <Button type="submit">Sign In</Button>
+          <div className="signin__submit">
+            <Button type="submit">Sign In</Button>
+            <Button onClick={SignInWithGoogle} isBlue>
+              Sign In With Google
+            </Button>
+          </div>
         </form>
       </div>
     )

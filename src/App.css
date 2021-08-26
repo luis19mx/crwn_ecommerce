@@ -1,3 +1,8 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
 body {
   font-family: 'Open Sans Condensed', sans-serif;
   padding: 2vh 3vw;
