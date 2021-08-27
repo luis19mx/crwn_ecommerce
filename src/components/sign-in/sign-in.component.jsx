@@ -16,28 +16,28 @@ export default class SignIn extends Component {
     evt.preventDefault()
     this.setState({ email: '', password: '' })
   }
-  handleChange(evt) {
-    // const { name, value } = evt
-    // this.setState({ [name]: value })
+  handleChange = (evt) => {
+    const { name, value } = evt.target
+    this.setState({ [name]: value })
   }
   render() {
     return (
       <div className="signin">
-        <h2 className="singin__title">I already have an account</h2>
+        <h2 className="signin__title">I already have an account</h2>
         <span>Sign in with your email and password</span>
 
         <form onSubmit={this.handleSubmit}>
           <FormInput
-            handleChange={this.handleChange}
-            label="email"
+            onChange={this.handleChange}
+            label="Email"
             type="email"
             name="email"
             value={this.state.email}
             required
           />
           <FormInput
-            handleChange={this.handleChange}
-            label="password"
+            onChange={this.handleChange}
+            label="Password"
             type="password"
             name="password"
             value={this.state.password}

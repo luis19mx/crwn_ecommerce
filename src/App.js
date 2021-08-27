@@ -1,26 +1,45 @@
 import { Component } from 'react'
 import { Route } from 'react-router-dom'
-import './App.css'
+import { onAuthStateChanged } from 'firebase/auth'
+import { onSnapshot } from 'firebase/firestore'
+
 import HomePage from './pages/home/home.page'
 import ShopPage from './pages/shop/shop.page'
 import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.page'
 import Header from './components/header/header.component'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { auth, createUserDocument } from './firebase'
+
+import './App.css'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      currentUser: '',
+      currentUser: null,
     }
   }
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    const auth = getAuth()
-    this.unsubscribeFromAuth = onAuthStateChanged(auth, (currentUser) =>
-      this.setState({ currentUser }),
-    )
+    this.unsubscribeFromAuth = onAuthStateChanged(auth, async (currentUser) => {
+      if (!currentUser) return this.setState({ currentUser })
+
+      const docRef = await createUserDocument(currentUser)
+
+      try {
+        await onSnapshot(docRef, (doc) =>
+          // console.log(doc.data()) ||
+          this.setState({
+            currentUser: {
+              id: doc.id,
+              ...doc.data(),
+            },
+          }),
+        )
+      } catch (error) {
+        console.error(error.stack)
+      }
+    })
   }
 
   componentWillUnmount() {

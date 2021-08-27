@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { getAuth, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase'
 
 import './header.styles.scss'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
@@ -20,7 +21,6 @@ const Header = ({ currentUser }) => (
         <div
           className="header__option"
           onClick={async () => {
-            const auth = getAuth()
             try {
               await signOut(auth)
             } catch (error) {

@@ -1,8 +1,6 @@
-// import firebase from 'firebase/app'
-// import 'firebase/firestore'
-// import 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD6TKbv9MBLAXg3UfhRy9IPT7rBpeCy1h0',
@@ -15,11 +13,40 @@ const firebaseConfig = {
 }
 
 initializeApp(firebaseConfig)
+
+const db = getFirestore()
 const auth = getAuth()
 const provider = new GoogleAuthProvider()
 provider.setCustomParameters({ prompt: 'select_account' })
 
-export const SignInWithGoogle = async () => {
+const createUserDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return
+  try {
+    const userRef = doc(db, 'users', userAuth.uid)
+    const user = await getDoc(userRef)
+    if (!user.exists()) {
+      const { uid: id, displayName, email } = userAuth
+      const createdAt = new Date()
+
+      await setDoc(doc(db, 'users', id), {
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      })
+    }
+
+    return userRef
+
+    // const cartItems = await getDocs(collection(db, `users/${userAuth.uid}/cartItem`))
+    // cartItems.forEach(doc=> console.log(`${doc.id} => ${JSON.stringify(doc.data())}`))
+  } catch (error) {
+    console.error(error.stack)
+    throw error
+  }
+}
+
+const SignInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider)
     const credential = GoogleAuthProvider.credentialFromResult(result)
@@ -39,11 +66,4 @@ export const SignInWithGoogle = async () => {
   }
 }
 
-// export const auth = firebase.auth()
-// export const firestore = firebase.firestore()
-
-// const provider = new firebase.auth.GoogleAuthProvider()
-// provider.setCustomParameters({ prompt: 'select_account' })
-// export const SignInWithGoogle = () => auth.SignInWithGoogle(provider)
-
-// export default firebase
+export { createUserDocument, SignInWithGoogle, auth }
