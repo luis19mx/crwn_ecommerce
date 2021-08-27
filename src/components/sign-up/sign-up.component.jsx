@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, createUserDocument } from '../../firebase'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
-import { auth, createUserDocument } from '../../firebase'
 
 import './sign-up.styles.scss'
 

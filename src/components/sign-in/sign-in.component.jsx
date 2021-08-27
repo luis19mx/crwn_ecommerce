@@ -1,20 +1,26 @@
 import { Component } from 'react'
-import './sign-in.styles.scss'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth, SignInWithGoogle } from '../../firebase'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
-import { SignInWithGoogle } from '../../firebase'
+
+import './sign-in.styles.scss'
 
 export default class SignIn extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      email: '',
-      password: '',
-    }
+    this.state = { email: '', password: '' }
   }
-  handleSubmit(evt) {
+  handleSubmit = async (evt) => {
     evt.preventDefault()
-    this.setState({ email: '', password: '' })
+    const { email, password } = this.state
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      this.setState({ email: '', password: '' })
+    } catch (error) {
+      console.error(error.stack)
+    }
+
   }
   handleChange = (evt) => {
     const { name, value } = evt.target
@@ -45,7 +51,7 @@ export default class SignIn extends Component {
           />
           <div className="signin__submit">
             <Button type="submit">Sign In</Button>
-            <Button onClick={SignInWithGoogle} isBlue>
+            <Button type="button" onClick={SignInWithGoogle} isBlue>
               Sign In With Google
             </Button>
           </div>
