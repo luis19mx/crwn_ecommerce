@@ -6,21 +6,22 @@ import Button from '../button/button.component'
 
 import './sign-in.styles.scss'
 
+const initState = { email: '', password: '' }
+
 export default class SignIn extends Component {
   constructor(props) {
     super(props)
-    this.state = { email: '', password: '' }
+    this.state = { ...initState }
   }
   handleSubmit = async (evt) => {
     evt.preventDefault()
     const { email, password } = this.state
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      this.setState({ email: '', password: '' })
+      this.setState({ ...initState })
     } catch (error) {
       console.error(error.stack)
     }
-
   }
   handleChange = (evt) => {
     const { name, value } = evt.target

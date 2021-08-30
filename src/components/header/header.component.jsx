@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
-import { signOut } from 'firebase/auth'
-import { auth } from '../../firebase'
+import { Link } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { connect } from 'react-redux';
+import { auth } from '../../firebase';
 
-import './header.styles.scss'
-import { ReactComponent as Logo } from '../../assets/crown.svg'
+import './header.styles.scss';
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 const Header = ({ currentUser }) => (
   <header className="header">
@@ -22,10 +23,10 @@ const Header = ({ currentUser }) => (
           className="header__option"
           onClick={async () => {
             try {
-              await signOut(auth)
+              await signOut(auth);
             } catch (error) {
-              console.error(error.stack)
-              throw error
+              console.error(error.stack);
+              throw error;
             }
           }}
         >
@@ -38,6 +39,10 @@ const Header = ({ currentUser }) => (
       )}
     </div>
   </header>
-)
+);
 
-export default Header
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
