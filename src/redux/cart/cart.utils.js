@@ -14,15 +14,13 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
 
-export const removeItemFromCart = (cartItems, idItemToRemove) => [
-  ...cartItems.filter(({ id }) => id !== idItemToRemove),
-];
+export const decreasedItemQuantity = (cartItems, item) => {
+  if (item.quantity <= 1)
+    return cartItems.filter((cartItem) => cartItem.id !== item.id);
 
-// };
-// const index = cartItems.indexOf(
-//   cartItems.find(({ id }) => id === idItemToRemove),
-// );
-// if (index >= 0) {
-// cartItems.splice(index, 1);
-// return [...cartItems];
-// }
+  return cartItems.map((cartItem) =>
+    cartItem.id === item.id
+      ? { ...item, quantity: item.quantity - 1 }
+      : cartItem,
+  );
+};
