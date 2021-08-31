@@ -13,3 +13,16 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
+
+export const removeItemFromCart = (cartItems, idItemToRemove) => [
+  ...cartItems.filter(({ id }) => id !== idItemToRemove),
+];
+
+// };
+// const index = cartItems.indexOf(
+//   cartItems.find(({ id }) => id === idItemToRemove),
+// );
+// if (index >= 0) {
+// cartItems.splice(index, 1);
+// return [...cartItems];
+// }
