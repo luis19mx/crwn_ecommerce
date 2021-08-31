@@ -7,7 +7,12 @@ import {
 
 import './checkout-item.styles.scss';
 
-const CheckoutItem = ({ item, dispatch }) => {
+const CheckoutItem = ({
+  item,
+  decreaseItemQuantity,
+  increaseItemQuantity,
+  removeItem,
+}) => {
   const { imageUrl, name, quantity, price } = item;
   return (
     <div className="checkout-item">
@@ -16,11 +21,17 @@ const CheckoutItem = ({ item, dispatch }) => {
       </div>
       <span className="name">{name}</span>
       <span className="quantity">
-        <span className="quantity__arrow" onClick={() => decreaseItemQuantity(item)}>
+        <span
+          className="quantity__arrow"
+          onClick={() => decreaseItemQuantity(item)}
+        >
           &#10094;
         </span>
         <span className="quantity__value">{quantity}</span>
-        <span className="quantity__arrow" onClick={() => increaseItemQuantity(item)}>
+        <span
+          className="quantity__arrow"
+          onClick={() => increaseItemQuantity(item)}
+        >
           &#10095;
         </span>
       </span>

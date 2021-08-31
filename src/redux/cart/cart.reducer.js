@@ -7,17 +7,10 @@ const {
   DECREASE_ITEM_QUANTITY,
   INCREASE_ITEM_QUANTITY,
 } = CartActionTypes;
+
 const INITIAL_STATE = {
   cartIsHidden: true,
-  cartItems: [
-    {
-      id: 3,
-      name: 'Brown Cowboy',
-      imageUrl: 'https://i.ibb.co/QdJwgmp/brown-cowboy.png',
-      price: 35,
-      quantity: 1,
-    },
-  ],
+  cartItems: [],
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
