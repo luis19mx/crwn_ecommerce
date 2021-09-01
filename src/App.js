@@ -20,9 +20,8 @@ function App({ cartItems, currentUser, setCurrentUser }) {
     let unsubscribeFromAuth = null;
     unsubscribeFromAuth = onAuthStateChanged(auth, handleOnAuthStateChanged);
 
-    return function unsubscribeFromAuthFirebase() {
-      unsubscribeFromAuth();
-    };
+    const unsubscribeFromAuthFirebase = () => unsubscribeFromAuth();
+    return unsubscribeFromAuthFirebase;
 
     async function handleOnAuthStateChanged(currentUser) {
       if (!currentUser) return setCurrentUser(currentUser);
