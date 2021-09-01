@@ -3,11 +3,11 @@ import { signOut } from 'firebase/auth';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import './header.styles.scss';
 import { auth } from '../../firebase';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import './header.styles.scss';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartIsHidden } from '../../redux/cart/cart.selectors';
 
