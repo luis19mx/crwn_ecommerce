@@ -1,18 +1,18 @@
 const INITIAL_STATE = invokeShopData();
 
 const shopReducer = (state = INITIAL_STATE, action) => {
-  switch(action.name) {
+  switch (action.name) {
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default shopReducer;
 
 function invokeShopData() {
   return {
-    collections: [
-      {
+    collections: {
+      hats: {
         id: 1,
         title: 'Hats',
         routeName: 'hats',
@@ -73,7 +73,7 @@ function invokeShopData() {
           },
         ],
       },
-      {
+      sneakers: {
         id: 2,
         title: 'Sneakers',
         routeName: 'sneakers',
@@ -128,7 +128,7 @@ function invokeShopData() {
           },
         ],
       },
-      {
+      jackets: {
         id: 3,
         title: 'Jackets',
         routeName: 'jackets',
@@ -165,7 +165,7 @@ function invokeShopData() {
           },
         ],
       },
-      {
+      womens: {
         id: 4,
         title: 'Womens',
         routeName: 'womens',
@@ -214,7 +214,7 @@ function invokeShopData() {
           },
         ],
       },
-      {
+      mens: {
         id: 5,
         title: 'Mens',
         routeName: 'mens',
@@ -257,6 +257,6 @@ function invokeShopData() {
           },
         ],
       },
-    ],
+    },
   };
 }
