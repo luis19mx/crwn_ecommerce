@@ -1,5 +1,5 @@
 import StripeCheckout from 'react-stripe-checkout'
-import { ReactComponent as Logo } from '../../assets/crown.svg';
+import Logo from '../../assets/crown-stripe.png';
 
 const StripeButton = ({price}) => {
   const priceInCents = price * 100;
