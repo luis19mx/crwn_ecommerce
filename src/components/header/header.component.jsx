@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+/** @jsxImportSource @emotion/react  */
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import './header.styles.scss';
 import { auth } from '../../firebase';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -12,20 +14,20 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartIsHidden } from '../../redux/cart/cart.selectors';
 
 const Header = ({ currentUser, cartIsHidden }) => (
-  <header className="header">
-    <Link className="header__logo-container" to="/">
-      <Logo className="header__logo" />
-    </Link>
-    <div className="header__options">
-      <Link className="header__option" to="/shop">
+  <HeaderStyles>
+    <LogoContainerStyles to="/">
+      <Logo />
+    </LogoContainerStyles>
+    <div css={OptionsStyles}>
+      <Link css={OptionStyles} to="/shop">
         Shop
       </Link>
-      <Link className="header__option" to="/shop">
+      <Link css={OptionStyles} to="/shop">
         Contact
       </Link>
       {currentUser ? (
         <div
-          className="header__option"
+          css={OptionStyles}
           onClick={async () => {
             try {
               await signOut(auth);
@@ -38,14 +40,14 @@ const Header = ({ currentUser, cartIsHidden }) => (
           Sign out
         </div>
       ) : (
-        <Link className="header__option" to="/signin">
+        <Link css={OptionStyles} to="/signin">
           Sign in
         </Link>
       )}
       <CartIcon />
     </div>
     {!cartIsHidden && <CartDropdown />}
-  </header>
+  </HeaderStyles>
 );
 
 const mapStateToProps = createStructuredSelector({
@@ -54,3 +56,29 @@ const mapStateToProps = createStructuredSelector({
 });
 
 export default connect(mapStateToProps)(Header);
+
+const HeaderStyles = styled.header`
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  position: relative;
+`;
+const LogoContainerStyles = styled(Link)`
+  height: 100%;
+  width: 70px;
+  padding: 25px;
+`;
+const OptionsStyles = css`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+`;
+const OptionStyles = css`
+  padding: 10px 15px;
+  text-transform: uppercase;
+`;
