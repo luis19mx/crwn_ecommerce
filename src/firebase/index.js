@@ -1,6 +1,15 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  getDocs,
+  collection,
+  addDoc,
+  writeBatch,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD6TKbv9MBLAXg3UfhRy9IPT7rBpeCy1h0',
@@ -10,46 +19,62 @@ const firebaseConfig = {
   messagingSenderId: '901354777096',
   appId: '1:901354777096:web:433a42f90d1eada453bfbd',
   measurementId: 'G-93V76TKT2C',
-}
+};
 
-initializeApp(firebaseConfig)
+initializeApp(firebaseConfig);
 
-const db = getFirestore()
-const auth = getAuth()
-const provider = new GoogleAuthProvider()
-provider.setCustomParameters({ prompt: 'select_account' })
+const db = getFirestore();
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
 
 const createUserDocument = async (userAuth, additionalData) => {
-  if (!userAuth) return
+  if (!userAuth) return;
   try {
-    const userRef = doc(db, 'users', userAuth.uid)
-    const user = await getDoc(userRef)
+    const userRef = doc(db, 'users', userAuth.uid);
+    const user = await getDoc(userRef);
     if (!user.exists()) {
-      const { uid: id, displayName, email } = userAuth
-      const createdAt = new Date()
+      const { uid: id, displayName, email } = userAuth;
+      const createdAt = new Date();
 
       await setDoc(doc(db, 'users', id), {
         displayName,
         email,
         createdAt,
         ...additionalData,
-      })
+      });
     }
 
-    return userRef
+    return userRef;
 
-    // const cartItems = await getDocs(collection(db, `users/${userAuth.uid}/cartItem`))
+    // const cartItems = await getDocs(collection(db, `users`))
     // cartItems.forEach(doc=> console.log(`${doc.id} => ${JSON.stringify(doc.data())}`))
   } catch (error) {
-    console.error(error.stack)
-    throw error
+    console.error(error.stack);
+    throw error;
   }
-}
+};
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  try {
+    const collectionRef = await getDocs(collection(db, collectionKey));
+    if (collectionRef.empty) {
+      const batch = writeBatch(db);
+      objectsToAdd.forEach(async ({title, items}) => {
+        const ref = doc(collection(db, collectionKey));
+        batch.set(ref, {title, items})
+      });
+      await batch.commit();
+    }
+  } catch (error) {
+    console.error(error.stack);
+  }
+};
 
 const SignInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, provider)
-    await GoogleAuthProvider.credentialFromResult(result)
+    const result = await signInWithPopup(auth, provider);
+    await GoogleAuthProvider.credentialFromResult(result);
     // const token = credential.accessToken
     // const user = result.user
     // console.log(result)
@@ -60,10 +85,10 @@ const SignInWithGoogle = async () => {
     // const errorCode = error.code
     // const errorMessage = error.message
     // const email = error.email
-    const credential = GoogleAuthProvider.credentialFromError(error)
-    console.error(credential)
-    throw error
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    console.error(credential);
+    throw error;
   }
-}
+};
 
-export { createUserDocument, SignInWithGoogle, auth }
+export { createUserDocument, SignInWithGoogle, auth };
