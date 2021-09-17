@@ -9,7 +9,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
 
 export default shopReducer;
 
-function invokeShopData() {
+export function invokeShopData() {
   return {
     collections: {
       hats: {
