@@ -3,6 +3,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCollectionsForPreview } from '../../redux/shop/shop.selectors';
 import CollectionPreview from '../collection-preview/collection-preview.component';
+import WithSpinner from '../with-spinner/with-spinner.component';
 
 import './collection-overview.styles.scss';
 
@@ -18,4 +19,4 @@ const mapStateToProps = createStructuredSelector({
   collections: selectCollectionsForPreview,
 });
 
-export default connect(mapStateToProps)(CollectionOverview);
+export default WithSpinner(connect(mapStateToProps)(CollectionOverview));
