@@ -3,7 +3,7 @@ import { doc, getDocs, collection, writeBatch } from 'firebase/firestore';
 import { db } from '../src/firebase/index.js';
 import invokeShopData from '../src/data/shop.data.js';
 
-const collections = invokeShopData().collections;
+const collections = invokeShopData();
 
 const collectionsArray = Object.keys(collections).map((key) => ({
   ...collections[key],

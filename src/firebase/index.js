@@ -53,24 +53,24 @@ const SignInWithGoogle = async () => {
   }
 };
 
-const convertCollectionsSnapshotToMap = (collections) => {
-  const collectionsMap = collections.docs.map((doc) => {
-    const { title, items } = doc.data();
-    return {
-      routeName: encodeURI(title.toLowerCase()),
-      id: doc.id,
-      title,
-      items,
-    };
-  });
-  return collectionsMap.reduce(
-    (map, collection) => ({
-      ...map,
-      [collection.title.toLowerCase()]: collection,
-    }),
-    {},
-  );
-};
+const convertCollectionsSnapshotToMap = (collections) =>
+  collections.docs
+    .map((doc) => {
+      const { title, items } = doc.data();
+      return {
+        routeName: encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items,
+      };
+    })
+    .reduce(
+      (map, collection) => ({
+        ...map,
+        [collection.title.toLowerCase()]: collection,
+      }),
+      {},
+    );
 
 export {
   createUserDocument,
