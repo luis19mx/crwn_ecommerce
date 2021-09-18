@@ -4,6 +4,6 @@ const CartActionTypes = {
   REMOVE_ITEM: 'REMOVE_ITEM',
   DECREASE_ITEM_QUANTITY: 'DECREASE_ITEM_QUANTITY',
   INCREASE_ITEM_QUANTITY: 'INCREASE_ITEM_QUANTITY',
-}
+};
 
 export default CartActionTypes;

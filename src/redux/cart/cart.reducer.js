@@ -1,5 +1,6 @@
 import CartActionTypes from './cart.types';
 import { addItemToCart, decreasedItemQuantity } from './cart.utils';
+
 const {
   TOGGLE_CART_IS_HIDDEN,
   ADD_ITEM,

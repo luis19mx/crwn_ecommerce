@@ -35,11 +35,7 @@ const createUserDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     }
-
     return userRef;
-
-    // const cartItems = await getDocs(collection(db, `users`))
-    // cartItems.forEach(doc=> console.log(`${doc.id} => ${JSON.stringify(doc.data())}`))
   } catch (error) {
     console.error(error.stack);
     throw error;
@@ -50,20 +46,36 @@ const SignInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     await GoogleAuthProvider.credentialFromResult(result);
-    // const token = credential.accessToken
-    // const user = result.user
-    // console.log(result)
-    // console.log(credential)
-    // console.log(token)
-    // console.log(user)
   } catch (error) {
-    // const errorCode = error.code
-    // const errorMessage = error.message
-    // const email = error.email
     const credential = GoogleAuthProvider.credentialFromError(error);
     console.error(credential);
     throw error;
   }
 };
 
-export { createUserDocument, SignInWithGoogle, auth, db, firebaseConfig };
+const convertCollectionsSnapshotToMap = (collections) => {
+  const collectionsMap = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  return collectionsMap.reduce(
+    (map, collection) => ({
+      ...map,
+      [collection.title.toLowerCase()]: collection,
+    }),
+    {},
+  );
+};
+
+export {
+  createUserDocument,
+  SignInWithGoogle,
+  convertCollectionsSnapshotToMap,
+  auth,
+  db,
+};

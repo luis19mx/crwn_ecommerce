@@ -1,7 +1,7 @@
 import { doc, getDocs, collection, writeBatch } from 'firebase/firestore';
 
 import { db } from '../src/firebase/index.js';
-import { invokeShopData } from '../src/redux/shop/shop.reducer.js';
+import invokeShopData from '../src/data/shop.data.js';
 
 const collections = invokeShopData().collections;
 

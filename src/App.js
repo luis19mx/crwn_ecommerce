@@ -20,15 +20,15 @@ function App({ cartItems, currentUser, setCurrentUser }) {
     let unsubscribeFromAuth = null;
     unsubscribeFromAuth = onAuthStateChanged(auth, handleOnAuthStateChanged);
 
-    const unsubscribeFromAuthFirebase = () => unsubscribeFromAuth();
-    return unsubscribeFromAuthFirebase;
+    return function unsubscribeFromAuthFirebase() {
+      unsubscribeFromAuth();
+    };
 
     async function handleOnAuthStateChanged(currentUser) {
       if (!currentUser) return setCurrentUser(currentUser);
       const docRef = await createUserDocument(currentUser);
       try {
         await onSnapshot(docRef, (doc) =>
-          // console.log(doc.data()) ||
           setCurrentUser({
             id: doc.id,
             ...doc.data(),

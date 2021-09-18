@@ -13,7 +13,7 @@ export const selectCollectionsForPreview = createSelector(
   (collections) =>
     Object.keys(collections).map((key) => ({
       ...collections[key],
-      items: collections[key].items
+      items: collections[key].items.slice(0, 4),
     })),
 );
 
