@@ -1,52 +1,37 @@
-import { Link } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-/** @jsxImportSource @emotion/react  */
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 
-import { auth } from '../../firebase';
-import CartIcon from '../cart-icon/cart-icon.component';
-import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartIsHidden } from '../../redux/cart/cart.selectors';
+
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdownContainer from '../cart-dropdown/cart-dropdown.container';
+import SignOut from '../sign-out/sign-out.component';
+
+import { ReactComponent as Logo } from '../../assets/crown.svg';
+import {
+  HeaderStyles,
+  LogoContainerStyles,
+  OptionsStyles,
+  OptionStyles,
+} from './header.styles';
 
 const Header = ({ currentUser, cartIsHidden }) => (
   <HeaderStyles>
     <LogoContainerStyles to="/">
       <Logo />
     </LogoContainerStyles>
-    <div css={OptionsStyles}>
-      <Link css={OptionStyles} to="/shop">
-        Shop
-      </Link>
-      <Link css={OptionStyles} to="/shop">
-        Contact
-      </Link>
+    <OptionsStyles>
+      <OptionStyles to="/shop">Shop</OptionStyles>
+      <OptionStyles to="/shop">Contact</OptionStyles>
       {currentUser ? (
-        <div
-          css={OptionStyles}
-          onClick={async () => {
-            try {
-              await signOut(auth);
-            } catch (error) {
-              console.error(error.stack);
-              throw error;
-            }
-          }}
-        >
-          Sign out
-        </div>
+        <SignOut>Sign out</SignOut>
       ) : (
-        <Link css={OptionStyles} to="/signin">
-          Sign in
-        </Link>
+        <OptionStyles to="/signin">Sign in</OptionStyles>
       )}
       <CartIcon />
-    </div>
-    {!cartIsHidden && <CartDropdown />}
+    </OptionsStyles>
+    {!cartIsHidden && <CartDropdownContainer />}
   </HeaderStyles>
 );
 
@@ -56,29 +41,3 @@ const mapStateToProps = createStructuredSelector({
 });
 
 export default connect(mapStateToProps)(Header);
-
-const HeaderStyles = styled.header`
-  height: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
-  position: relative;
-`;
-const LogoContainerStyles = styled(Link)`
-  height: 100%;
-  width: 70px;
-  padding: 25px;
-`;
-const OptionsStyles = css`
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  cursor: pointer;
-`;
-const OptionStyles = css`
-  padding: 10px 15px;
-  text-transform: uppercase;
-`;

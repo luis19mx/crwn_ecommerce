@@ -2,11 +2,6 @@ import { collection, getDocs, query } from '@firebase/firestore';
 import { convertCollectionsSnapshotToMap, db } from '../../firebase';
 import ShopActionTypes from './shop.types';
 
-export const updateCollections = (collectionsMap) => ({
-  type: ShopActionTypes.UPDATE_COLLECTIONS,
-  payload: collectionsMap,
-});
-
 export const fetchCollectionsStart = () => ({
   type: ShopActionTypes.FETCH_COLLECTIONS_START,
 });
