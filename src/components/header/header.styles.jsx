@@ -26,3 +26,7 @@ export const OptionStyles = styled(Link)`
   padding: 10px 15px;
   text-transform: uppercase;
 `;
+export const OptionStylesAsDiv = styled.div`
+  padding: 10px 15px;
+  text-transform: uppercase;
+`;

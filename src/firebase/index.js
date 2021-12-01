@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -16,8 +21,8 @@ initializeApp(firebaseConfig);
 
 const db = getFirestore();
 const auth = getAuth();
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 const createUserDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -44,7 +49,7 @@ const createUserDocument = async (userAuth, additionalData) => {
 
 const SignInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, googleProvider);
     await GoogleAuthProvider.credentialFromResult(result);
   } catch (error) {
     const credential = GoogleAuthProvider.credentialFromError(error);
@@ -71,6 +76,19 @@ const convertCollectionsSnapshotToMap = (collections) =>
       }),
       {},
     );
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribeFromAuth = onAuthStateChanged(
+      auth,
+      (currentUser) => {
+        unsubscribeFromAuth();
+        resolve(currentUser);
+      },
+      reject,
+    );
+  });
+};
 
 export {
   createUserDocument,

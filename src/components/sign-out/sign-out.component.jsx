@@ -1,7 +1,6 @@
 import { signOut } from '@firebase/auth';
-
 import { auth } from '../../firebase';
-import { OptionStyles } from '../header/header.styles';
+import { OptionStylesAsDiv } from '../header/header.styles';
 
 async function handleClick() {
   try {
@@ -13,8 +12,8 @@ async function handleClick() {
 
 export default function SignOut({ children }) {
   return (
-    <OptionStyles as="div" onClick={handleClick}>
+    <OptionStylesAsDiv onClick={handleClick}>
       {children}
-    </OptionStyles>
+    </OptionStylesAsDiv>
   );
 }

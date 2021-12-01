@@ -1,4 +1,3 @@
-// import invokeShopData from '../../data/shop.data';
 import ShopActionTypes from './shop.types';
 
 const INITIAL_STATE = {
