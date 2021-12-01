@@ -1,21 +1,29 @@
 import { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
-import './App.css';
-
-import HomePage from '../../pages/home/home.page';
-import ShopPage from '../../pages/shop/shop.page';
-import SignInSignUpPage from '../../pages/sign-in-sign-up/sign-in-sign-up.page';
-import CheckoutPage from '../../pages/checkout/checkout.page';
-import Header from '../header/header.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { checkUserSession } from '../../redux/user/user.actions';
+import './App.css';
+import HomePage from '../../views/home';
+import ShopPage from '../../views/shop';
+import SignInSignUpPage from '../../views/sign-in-sign-up';
+import CheckoutPage from '../../views/checkout';
+import Header from '../Header';
 
-function App({ cartItems, currentUser, checkUserSession }) {
-  useEffect(() => checkUserSession(), [checkUserSession]);
+const storeSelectors = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  cartItems: selectCartItems,
+});
+
+export default function App() {
+  const dispatch = useDispatch();
+  const { cartItems, currentUser } = useSelector(storeSelectors);
+
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, [dispatch]);
 
   return (
     <>
@@ -38,14 +46,3 @@ function App({ cartItems, currentUser, checkUserSession }) {
     </>
   );
 }
-
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  cartItems: selectCartItems,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  checkUserSession: () => dispatch(checkUserSession()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
