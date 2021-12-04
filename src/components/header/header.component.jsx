@@ -5,7 +5,7 @@ import { selectCartIsHidden } from '../../redux/cart/cart.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
 
 import CartDropdownContainer from '../CartDropdown';
-import CartIcon from '../cart-icon/cart-icon.component';
+import CartIcon from '../CartIcon';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import {
   HeaderStyles,

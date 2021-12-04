@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import Directory from '../../components/directory-menu/directory-menu.component';
+import DirectoryMenu from '../../components/DirectoryMenu';
 import './home.styles.scss';
 
 export default function HomePage() {
@@ -12,7 +12,7 @@ export default function HomePage() {
         align-items: center;
       `}
     >
-      <Directory />
+      <DirectoryMenu />
     </div>
   );
 }

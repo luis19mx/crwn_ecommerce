@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { toggleCartVisibility } from '../../redux/cart/cart.actions';
-import Button from '../button/button.component';
-import CartItem from '../cart-item/cart-item.component';
+import Button from '../Button';
+import CartItem from '../CartItem';
 import './cart-dropdown.styles.scss';
 
 const storeSelectors = createStructuredSelector({

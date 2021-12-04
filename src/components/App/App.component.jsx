@@ -5,10 +5,11 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { checkUserSession } from '../../redux/user/user.actions';
+
 import './App.css';
 import HomePage from '../../views/home';
 import ShopPage from '../../views/shop';
-import SignInSignUpPage from '../../views/sign-in-sign-up';
+import SignInSignUpPage from '../../views/sign-in';
 import CheckoutPage from '../../views/checkout';
 import Header from '../Header';
 
