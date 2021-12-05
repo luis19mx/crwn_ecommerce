@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
   googleSignInStart,
   emailSignInStart,
-} from '../../redux/user/user.actions';
+} from '../../store/user/user.actions';
 import FormInput from '../FormInput';
 import Button from '../Button';
 import './sign-in.styles.scss';

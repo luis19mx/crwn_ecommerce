@@ -1,19 +1,20 @@
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import './checkout-item.styles.scss';
 import {
   removeItem,
   decreaseItemQuantity,
   increaseItemQuantity,
-} from '../../redux/cart/cart.actions';
+} from '../../store/cart/cart.actions';
 
-import './checkout-item.styles.scss';
+export default function CheckoutItem({ item }) {
+  const dispatch = useDispatch();
 
-const CheckoutItem = ({
-  item,
-  decreaseItemQuantity,
-  increaseItemQuantity,
-  removeItem,
-}) => {
+  const handleDecreaseItemQuantity = () => dispatch(decreaseItemQuantity(item));
+  const handleIncreaseItemQuantity = () => dispatch(increaseItemQuantity(item));
+  const handleRemoveItem = () => dispatch(removeItem(item));
+
   const { imageUrl, name, quantity, price } = item;
+
   return (
     <div className="checkout-item">
       <div className="image-container">
@@ -21,32 +22,18 @@ const CheckoutItem = ({
       </div>
       <span className="name">{name}</span>
       <span className="quantity">
-        <span
-          className="quantity__arrow"
-          onClick={() => decreaseItemQuantity(item)}
-        >
+        <span className="quantity__arrow" onClick={handleDecreaseItemQuantity}>
           &#10094;
         </span>
         <span className="quantity__value">{quantity}</span>
-        <span
-          className="quantity__arrow"
-          onClick={() => increaseItemQuantity(item)}
-        >
+        <span className="quantity__arrow" onClick={handleIncreaseItemQuantity}>
           &#10095;
         </span>
       </span>
       <span className="price">$ {price}</span>
-      <div className="remove-button" onClick={() => removeItem(item)}>
+      <div className="remove-button" onClick={handleRemoveItem}>
         &#10005;
       </div>
     </div>
   );
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  decreaseItemQuantity: (item) => dispatch(decreaseItemQuantity(item)),
-  increaseItemQuantity: (item) => dispatch(increaseItemQuantity(item)),
-  removeItem: (item) => dispatch(removeItem(item)),
-});
-
-export default connect(null, mapDispatchToProps)(CheckoutItem);
+}

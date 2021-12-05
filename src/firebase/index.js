@@ -1,20 +1,20 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import {
   getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD6TKbv9MBLAXg3UfhRy9IPT7rBpeCy1h0',
-  authDomain: 'crwn-ecommerce-4ac77.firebaseapp.com',
-  projectId: 'crwn-ecommerce-4ac77',
-  storageBucket: 'crwn-ecommerce-4ac77.appspot.com',
-  messagingSenderId: '901354777096',
-  appId: '1:901354777096:web:433a42f90d1eada453bfbd',
-  measurementId: 'G-93V76TKT2C',
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
 initializeApp(firebaseConfig);

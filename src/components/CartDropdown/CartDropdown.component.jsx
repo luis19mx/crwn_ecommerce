@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCartItems } from '../../redux/cart/cart.selectors';
-import { toggleCartVisibility } from '../../redux/cart/cart.actions';
+import { selectCartItems } from '../../store/cart/cart.selectors';
+import { toggleCartVisibility } from '../../store/cart/cart.actions';
 import Button from '../Button';
 import CartItem from '../CartItem';
 import './cart-dropdown.styles.scss';
 
-const storeSelectors = createStructuredSelector({
+const structuredSelectors = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
@@ -15,7 +15,7 @@ export default function CartDropdown() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { cartItems } = useSelector(storeSelectors);
+  const { cartItems } = useSelector(structuredSelectors);
 
   const handleClick = () => {
     if (cartItems.length) {
@@ -28,7 +28,7 @@ export default function CartDropdown() {
     <div className="cart-dropdown">
       <div className="cart-dropdown__items">
         {!!cartItems.length ? (
-          cartItems.map((item) => <CartItem key={item.id} {...{ item }} />)
+          cartItems.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
           <span className="cart-dropdown__message">
             Any item you add to your cart <br />
