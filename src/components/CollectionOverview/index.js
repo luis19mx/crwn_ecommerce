@@ -1,1 +1,1 @@
-export { default } from './collection-overview.container';
+export { default } from './CollectionOverview.component';

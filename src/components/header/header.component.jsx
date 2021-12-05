@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { selectCartIsHidden } from '../../redux/cart/cart.selectors';
-import { signOutStart } from '../../redux/user/user.actions';
+import { selectCurrentUser } from '../../store/user/user.selectors';
+import { selectCartIsHidden } from '../../store/cart/cart.selectors';
+import { signOutStart } from '../../store/user/user.actions';
 
-import CartDropdownContainer from '../CartDropdown';
+import CartDropdown from '../CartDropdown';
 import CartIcon from '../CartIcon';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import {
@@ -43,7 +43,7 @@ export default function Header() {
         )}
         <CartIcon />
       </OptionsStyles>
-      {!cartIsHidden && <CartDropdownContainer />}
+      {!cartIsHidden && <CartDropdown />}
     </HeaderStyles>
   );
 }
