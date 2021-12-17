@@ -6,7 +6,6 @@ import { selectCurrentUser } from '../../store/user/user.selectors';
 import { selectCartItems } from '../../store/cart/cart.selectors';
 import { checkUserSession } from '../../store/user/user.actions';
 
-import './App.css';
 import Layout from '../Layout';
 import HomePage from '../../views/home';
 import ShopPage from '../../views/shop';

@@ -1,4 +1,4 @@
-import { SpinnerOverlay, SpinnerContainer } from './with-spinner.styles';
+import { SpinnerOverlay, SpinnerContainer } from './WithSpinner.styles';
 
 const WithSpinner =
   (WrapperComponent) =>

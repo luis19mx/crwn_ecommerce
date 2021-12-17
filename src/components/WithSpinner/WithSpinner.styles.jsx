@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled/macro';
 
 export const SpinnerOverlay = styled.div`
   height: 60vh;
