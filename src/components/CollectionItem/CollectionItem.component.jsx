@@ -1,7 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../store/cart/cart.actions';
-import Button from '../Button';
-import './collection-item.styles.scss';
+import {
+  ItemStyles,
+  ItemImageStyles,
+  CtaStyles,
+  FooterStyles,
+  NameStyles,
+  PriceStyles,
+} from './CollectionItem.styles';
 
 export default function CollectionItem({ item }) {
   const { name, imageUrl, price } = item;
@@ -10,21 +16,16 @@ export default function CollectionItem({ item }) {
   const addItemHandler = () => dispatch(addItem(item));
 
   return (
-    <div className="item">
-      <div
-        className="item__image"
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-        }}
-      >
-        <Button onClick={addItemHandler} className="item__cta button inverted">
+    <ItemStyles>
+      <ItemImageStyles imageUrl={imageUrl}>
+        <CtaStyles onClick={addItemHandler} inverted>
           Add to cart
-        </Button>
-      </div>
-      <div className="item__footer">
-        <span className="item__footer--name">{name}</span>
-        <span className="item__footer--price">${price}</span>
-      </div>
-    </div>
+        </CtaStyles>
+      </ItemImageStyles>
+      <FooterStyles>
+        <NameStyles>{name}</NameStyles>
+        <PriceStyles>${price}</PriceStyles>
+      </FooterStyles>
+    </ItemStyles>
   );
 }

@@ -16,20 +16,16 @@ const structuredSelectors = createStructuredSelector({
 function CollectionOverview() {
   const { collections } = useSelector(structuredSelectors);
 
-  return (
-    <>
-      {!!collections
-        ? collections.map(({ id, title, items, routeName }) => (
-            <CollectionPreview
-              key={id}
-              title={title}
-              items={items}
-              routeName={routeName}
-            />
-          ))
-        : null}
-    </>
-  );
+  return !!collections
+    ? collections.map(({ id, title, items, routeName }) => (
+        <CollectionPreview
+          key={id}
+          title={title}
+          items={items}
+          routeName={routeName}
+        />
+      ))
+    : null;
 }
 
 export default compose(
