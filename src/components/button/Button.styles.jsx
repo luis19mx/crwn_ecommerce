@@ -1,13 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { css } from '@emotion/react';
 
-const Button = ({ children, ...props }) => (
-  <ButtonStyles {...props}>{children}</ButtonStyles>
-);
-
-export default Button;
-
-const ButtonStyles = styled.button`
+export const ButtonStyles = styled.button`
   min-width: 165px;
   width: auto;
   height: 50px;
