@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchCollectionsStart } from '../../store/shop/shop.actions';
-import CollectionsOverview from '../../components/CollectionOverview';
-import Collection from '../../components/Collection';
+import Loading from '../../components/Loading';
+
+const Collection = lazy(() => import('../../components/Collection'));
+const CollectionsOverview = lazy(() =>
+  import('../../components/CollectionOverview'),
+);
 
 export default function ShopPage() {
   const match = useRouteMatch();
@@ -14,13 +18,13 @@ export default function ShopPage() {
   }, [dispatch]);
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Route exact path={`${match.path}`}>
         <CollectionsOverview />
       </Route>
       <Route path={`${match.path}/:collectionId`}>
         <Collection />
       </Route>
-    </>
+    </Suspense>
   );
 }

@@ -1,16 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../store/user/user.selectors';
 import { selectCartItems } from '../../store/cart/cart.selectors';
 import { checkUserSession } from '../../store/user/user.actions';
-
 import Layout from '../Layout';
-import HomePage from '../../views/home';
-import ShopPage from '../../views/shop';
-import SignInSignUpPage from '../../views/sign-in';
-import CheckoutPage from '../../views/checkout';
+import Loading from '../Loading';
+
+const HomePage = lazy(() => import('../../views/home'));
+const ShopPage = lazy(() => import('../../views/shop'));
+const SignInSignUpPage = lazy(() => import('../../views/sign-in'));
+const CheckoutPage = lazy(() => import('../../views/checkout'));
 
 const structuredSelectors = createStructuredSelector({
   currentUser: selectCurrentUser,
@@ -29,25 +30,27 @@ export default function App() {
   return (
     <Layout>
       <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/shop">
-          <ShopPage />
-        </Route>
-        {!!cartItems.length && (
-          <Route path="/checkout">
-            <CheckoutPage />
+        <Suspense fallback={<Loading />}>
+          <Route exact path="/">
+            <HomePage />
           </Route>
-        )}
-        {!currentUser && (
-          <Route path="/signin">
-            <SignInSignUpPage />
+          <Route path="/shop">
+            <ShopPage />
           </Route>
-        )}
-        <Route path="*">
-          <Redirect to="/" />
-        </Route>
+          {!!cartItems.length && (
+            <Route path="/checkout">
+              <CheckoutPage />
+            </Route>
+          )}
+          {!currentUser && (
+            <Route path="/signin">
+              <SignInSignUpPage />
+            </Route>
+          )}
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        </Suspense>
       </Switch>
     </Layout>
   );
