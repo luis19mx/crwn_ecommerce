@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import DirectoryMenu from '../../components/DirectoryMenu';
-import './home.styles.scss';
 
 export default function HomePage() {
   return (

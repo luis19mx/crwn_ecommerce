@@ -6,7 +6,7 @@ import {
 } from '../../store/user/user.actions';
 import FormInput from '../FormInput';
 import Button from '../Button';
-import './sign-in.styles.scss';
+import { SignInStyles, SubmitStyles, TitleStyles } from '../SignStyles';
 
 const INITSTATE = {
   email: '',
@@ -43,8 +43,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="signin">
-      <h2 className="signin__title">I already have an account</h2>
+    <SignInStyles>
+      <TitleStyles>I already have an account</TitleStyles>
       <span>Sign in with your email and password</span>
       {authError && <span>Wrong credentials</span>}
 
@@ -66,7 +66,7 @@ export default function SignIn() {
           autoComplete="on"
           required
         />
-        <div className="signin__submit">
+        <SubmitStyles>
           <Button disable={disableForm.toString()} type="submit">
             Sign In
           </Button>
@@ -78,8 +78,8 @@ export default function SignIn() {
           >
             Sign In With Google
           </Button>
-        </div>
+        </SubmitStyles>
       </form>
-    </div>
+    </SignInStyles>
   );
 }

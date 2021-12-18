@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { signUpStart } from '../../store/user/user.actions';
 import FormInput from '../FormInput';
 import Button from '../Button';
-
-import './sign-up.styles.scss';
+import {
+  SignInStyles,
+  SubmitStyles,
+  TitleStyles,
+} from '../SignStyles';
 
 const INITSTATE = {
   displayName: '',
@@ -45,8 +48,8 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signup">
-      <h2 className="signup__title">I don't have an account</h2>
+    <SignInStyles>
+      <TitleStyles>I don't have an account</TitleStyles>
       <span>Sign Up with your email and password</span>
 
       <form onSubmit={handleSubmit}>
@@ -84,10 +87,10 @@ export default function SignUp() {
           autoComplete="on"
           required
         />
-        <div className="signup__submit">
+        <SubmitStyles>
           <Button type="submit">Sign Up</Button>
-        </div>
+        </SubmitStyles>
       </form>
-    </div>
+    </SignInStyles>
   );
 }

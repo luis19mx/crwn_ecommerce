@@ -5,7 +5,11 @@ import { selectCartItems } from '../../store/cart/cart.selectors';
 import { toggleCartVisibility } from '../../store/cart/cart.actions';
 import Button from '../Button';
 import CartItem from '../CartItem';
-import './cart-dropdown.styles.scss';
+import {
+  CartDropdownStyles,
+  ItemsStyles,
+  MessageStyles,
+} from './CartDropdown.styles.jsx';
 
 const structuredSelectors = createStructuredSelector({
   cartItems: selectCartItems,
@@ -25,17 +29,17 @@ export default function CartDropdown() {
   };
 
   return (
-    <div className="cart-dropdown">
-      <div className="cart-dropdown__items">
+    <CartDropdownStyles>
+      <ItemsStyles>
         {!!cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
-          <span className="cart-dropdown__message">
+          <MessageStyles>
             Any item you add to your cart <br />
             will be visible here.
-          </span>
+          </MessageStyles>
         )}
-      </div>
+      </ItemsStyles>
       <Button
         type="button"
         onClick={handleClick}
@@ -43,6 +47,6 @@ export default function CartDropdown() {
       >
         Go to checkout
       </Button>
-    </div>
+    </CartDropdownStyles>
   );
 }

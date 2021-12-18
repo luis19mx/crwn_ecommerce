@@ -1,10 +1,17 @@
 import { useDispatch } from 'react-redux';
-import './checkout-item.styles.scss';
 import {
   removeItem,
   decreaseItemQuantity,
   increaseItemQuantity,
 } from '../../store/cart/cart.actions';
+import {
+  CheckoutItemStyles,
+  ImageContainerStyles,
+  QuantityArrowStyles,
+  QuantityStyles,
+  QuantityValueStyles,
+  RemoveStyles,
+} from './CheckoutItem.styles';
 
 export default function CheckoutItem({ item }) {
   const dispatch = useDispatch();
@@ -16,24 +23,22 @@ export default function CheckoutItem({ item }) {
   const { imageUrl, name, quantity, price } = item;
 
   return (
-    <div className="checkout-item">
-      <div className="image-container">
+    <CheckoutItemStyles>
+      <ImageContainerStyles>
         <img src={imageUrl} alt="" />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <span className="quantity__arrow" onClick={handleDecreaseItemQuantity}>
+      </ImageContainerStyles>
+      <span>{name}</span>
+      <QuantityStyles>
+        <QuantityArrowStyles onClick={handleDecreaseItemQuantity}>
           &#10094;
-        </span>
-        <span className="quantity__value">{quantity}</span>
-        <span className="quantity__arrow" onClick={handleIncreaseItemQuantity}>
+        </QuantityArrowStyles>
+        <QuantityValueStyles>{quantity}</QuantityValueStyles>
+        <QuantityArrowStyles onClick={handleIncreaseItemQuantity}>
           &#10095;
-        </span>
-      </span>
+        </QuantityArrowStyles>
+      </QuantityStyles>
       <span className="price">$ {price}</span>
-      <div className="remove-button" onClick={handleRemoveItem}>
-        &#10005;
-      </div>
-    </div>
+      <RemoveStyles onClick={handleRemoveItem}>&#10005;</RemoveStyles>
+    </CheckoutItemStyles>
   );
 }

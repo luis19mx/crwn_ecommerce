@@ -2,8 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { toggleCartVisibility } from '../../store/cart/cart.actions';
 import { selectCartItemsCount } from '../../store/cart/cart.selectors';
-import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
-import './cart-icon.styles.scss';
+import { CartIconStyles, CountStyles, IconStyles } from './CartIcon.styles';
 
 const structuredSelectors = createStructuredSelector({
   itemsToCount: selectCartItemsCount,
@@ -16,9 +15,9 @@ export default function CartIcon() {
   const handleToggleCartVisibility = () => dispatch(toggleCartVisibility());
 
   return (
-    <div className="cart-icon" onClick={handleToggleCartVisibility}>
-      <ShoppingIcon className="cart-icon__icon" />
-      <span className="cart-icon__count">{itemsToCount}</span>
-    </div>
+    <CartIconStyles onClick={handleToggleCartVisibility}>
+      <IconStyles />
+      <CountStyles>{itemsToCount}</CountStyles>
+    </CartIconStyles>
   );
 }

@@ -1,4 +1,6 @@
-.cart-dropdown {
+import styled from '@emotion/styled/macro';
+
+export const CartDropdownStyles = styled.div`
   position: absolute;
   width: 240px;
   height: 340px;
@@ -11,17 +13,11 @@
   right: 0;
   z-index: 2;
 
-  &__items {
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
-  }
-
   button {
     margin-top: auto;
   }
-  [aria-disabled="true"] {
+
+  [aria-disabled='true'] {
     background-color: gray;
     opacity: 0.7;
 
@@ -30,10 +26,17 @@
       border-color: transparent;
     }
   }
+`;
 
-  &__message {
-    font-size: 18px;
-    margin: 50px auto 0;
-    text-align: center;
-  }
-}
+export const ItemsStyles = styled.div`
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+`;
+
+export const MessageStyles = styled.span`
+  font-size: 18px;
+  margin: 50px auto 0;
+  text-align: center;
+`;

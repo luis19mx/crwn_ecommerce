@@ -16,7 +16,7 @@ export const MenuItemStyles = styled.div`
     height: 200px;
   }
 
-  &:first-child {
+  &:first-of-type {
     margin-right: 7.5px;
   }
 
