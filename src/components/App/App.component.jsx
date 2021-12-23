@@ -7,6 +7,7 @@ import { selectCartItems } from '../../store/cart/cart.selectors';
 import { checkUserSession } from '../../store/user/user.actions';
 import Layout from '../Layout';
 import Loading from '../Loading';
+import ErrorBoundary from '../ErrorBoundary';
 
 const HomePage = lazy(() => import('../../views/home'));
 const ShopPage = lazy(() => import('../../views/shop'));
@@ -29,29 +30,31 @@ export default function App() {
 
   return (
     <Layout>
-      <Switch>
+      <ErrorBoundary>
         <Suspense fallback={<Loading />}>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/shop">
-            <ShopPage />
-          </Route>
-          {!!cartItems.length && (
-            <Route path="/checkout">
-              <CheckoutPage />
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
             </Route>
-          )}
-          {!currentUser && (
-            <Route path="/signin">
-              <SignInSignUpPage />
+            <Route path="/shop">
+              <ShopPage />
             </Route>
-          )}
-          <Route path="*">
-            <Redirect to="/" />
-          </Route>
+            {!!cartItems.length && (
+              <Route path="/checkout">
+                <CheckoutPage />
+              </Route>
+            )}
+            {!currentUser && (
+              <Route path="/signin">
+                <SignInSignUpPage />
+              </Route>
+            )}
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
+          </Switch>
         </Suspense>
-      </Switch>
+      </ErrorBoundary>
     </Layout>
   );
 }
